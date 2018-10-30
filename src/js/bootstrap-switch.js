@@ -3,7 +3,9 @@ import jquery from 'jquery';
 const $ = jquery || window.jQuery || window.$;
 
 function getClasses(options, id) {
-  const { state, size, disabled, readonly, indeterminate, inverse } = options;
+  const {
+    state, size, disabled, readonly, indeterminate, inverse,
+  } = options;
   return [
     state ? 'on' : 'off',
     size,
@@ -87,9 +89,8 @@ function prvinit() {
     this::prvwidth();
     this::prvcontainerPosition();
     setTimeout(() => (
-      this.options.animate &&
-      this.$wrapper.addClass(this::prvgetClass('animate'),
-    )), 50);
+      this.options.animate
+      && this.$wrapper.addClass(this::prvgetClass('animate'))), 50);
   };
   if (this.$wrapper.is(':visible')) {
     init();
@@ -97,10 +98,11 @@ function prvinit() {
   }
   const initInterval = window.setInterval(
     () => (
-      this.$wrapper.is(':visible') &&
-      (init() || true) &&
-      window.clearInterval(initInterval)
-    ), 50);
+      this.$wrapper.is(':visible')
+      && (init() || true)
+      && window.clearInterval(initInterval)
+    ), 50,
+  );
 }
 
 function prvelementHandlers() {
@@ -341,8 +343,8 @@ class BootstrapSwitch {
   state(value, skip) {
     if (typeof value === 'undefined') { return this.options.state; }
     if (
-      (this.options.disabled || this.options.readonly) ||
-      (this.options.state && !this.options.radioAllOff && this.$element.is(':radio'))
+      (this.options.disabled || this.options.readonly)
+      || (this.options.state && !this.options.radioAllOff && this.$element.is(':radio'))
     ) { return this.$element; }
     if (this.$element.is(':radio')) {
       $(`[name="${this.$element.attr('name')}"]`).trigger('setPreviousOptions.bootstrapSwitch');
@@ -544,8 +546,7 @@ class BootstrapSwitch {
     if (typeof value === 'undefined') {
       return this.options.onSwitchChange;
     }
-    this.options.onSwitchChange =
-      value || $.fn.bootstrapSwitch.defaults.onSwitchChange;
+    this.options.onSwitchChange = value || $.fn.bootstrapSwitch.defaults.onSwitchChange;
     return this.$element;
   }
 
